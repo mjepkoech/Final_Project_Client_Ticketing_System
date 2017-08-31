@@ -16,6 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('dashboard', require('./components/dashboard.vue'));
+Vue.component('login', require('./components/login.vue'));
 
 const app = new Vue({
     el: '#app'
