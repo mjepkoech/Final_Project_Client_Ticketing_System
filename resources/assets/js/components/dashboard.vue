@@ -1,3 +1,13 @@
+<script>
+    import Vue from 'vue';
+
+    Vue.component('side-bar', require('./partials/sidebar.vue'));
+    Vue.component('landing-section', require('./partials/landing.vue'));
+
+    export default {
+
+    }
+</script>
 <template>
 <div class="app-dashboard shrink-medium">
   <div class="row expanded app-dashboard-top-nav-bar">
@@ -10,49 +20,26 @@
           <h3 class="app-dashboard-sidebar-block-title">Items</h3>
           <!-- Close button -->
           <button id="close-sidebar" data-app-dashboard-toggle-shrink class="app-dashboard-sidebar-close-button show-for-medium" aria-label="Close menu" type="button">
-            <span aria-hidden="true"><a href="#"><i class="large fa fa-angle-double-left"></i></a></span>
-          </button>
-        </div>
-        <div class="app-dashboard-open-sidebar">
-          <button id="open-sidebar" data-app-dashboard-toggle-shrink class="app-dashboard-open-sidebar-button show-for-medium" aria-label="open menu" type="button">
-            <span aria-hidden="true"><a href="#"><i class="large fa fa-angle-double-right"></i></a></span>
+            <span aria-hidden="true"><a href=""><i class="large fa fa-angle-double-left"></i></a></span>
           </button>
         </div>
       </div>
-      <div class="app-dashboard-sidebar-inner">
-        <ul class="menu vertical">
-          <li><a href="#" class="is-active">
-            <i class="large fa fa-institution"></i><span class="app-dashboard-sidebar-text">New Issue</span>
-          </a></li>
-          <li><a>
-            <i class="large fa fa-hourglass"></i><span class="app-dashboard-sidebar-text">Edit Issue</span>
-          </a></li>
 
-          <li><a>
-            <i class="large fa fa-industry"></i><span class="app-dashboard-sidebar-text">All Issues</span>
-          </a></li>
-        </ul>
+      <div class="app-dashboard-sidebar-inner">
+          <side-bar></side-bar>
       </div>
+
     </div>
 
     <div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
-      <h2 class="text-center">Client Support Service</h2>
-
-      <p>Deliver great customer service with our customer service software by making sure all requests are dealt with efficiently and nothing gets forgotten. As a feature to your CRM, this help desk ticketing system means you can prioritise support requests with customisable SLAs (Service Level Agreements) and real-time response reporting on your dashboard.</p>
-
-
+       <landing-section></landing-section>
     </div>
+
   </div>
 </div>
 
-
 </template>
 
-<script>
-export default {
-  name: 'dashboard'
-}
-</script>
 <style lang="scss" scoped>
 
 .app-dashboard {
@@ -100,31 +87,6 @@ export default {
   color: #fefefe;
   text-transform: uppercase;
   font-weight: bold;
-}
-
-.app-dashboard-search-bar-container {
-  position: relative;
-}
-
-.app-dashboard-search {
-  background: #41525e;
-  border: 0;
-  margin-bottom: 0;
-  color: #fefefe;
-}
-
-.app-dashboard-search:active, .app-dashboard-search:focus {
-  background: #222b31;
-}
-
-.app-dashboard-search-icon {
-  position: absolute;
-  color: #fefefe;
-  right: 1rem;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
 }
 
 .app-dashboard-top-bar-actions {
@@ -225,94 +187,5 @@ export default {
   padding: 20px;
   background-color: #fefefe;
 }
-
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {
-  .app-dashboard.shrink-medium .app-dashboard-close-sidebar, .app-dashboard.shrink-medium .app-dashboard-sidebar-text {
-    display: none;
-  }
-  .app-dashboard.shrink-medium .app-dashboard-open-sidebar {
-    display: block;
-  }
-  .app-dashboard.shrink-medium .app-dashboard-sidebar {
-    width: 80px;
-  }
-  .app-dashboard.shrink-medium .app-dashboard-sidebar .fa.large {
-    width: auto;
-  }
-  .app-dashboard.shrink-medium .off-canvas-content {
-    margin-left: 80px;
-    width: calc(100% - 80px);
-  }
-  .app-dashboard.shrink-medium .navigation {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  .app-dashboard.shrink-medium .menu.vertical > li > a {
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  .app-dashboard.shrink-medium .menu li::after {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .app-dashboard.shrink-medium .menu li a {
-    padding: 0.75rem;
-  }
-  .app-dashboard.shrink-medium .menu li a svg {
-    margin: 0;
-  }
-  .app-dashboard.shrink-medium .menu li a span {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .app-dashboard.shrink-large .app-dashboard-close-sidebar, .app-dashboard.shrink-large .app-dashboard-sidebar-text {
-    display: none;
-  }
-  .app-dashboard.shrink-large .app-dashboard-open-sidebar {
-    display: block;
-  }
-  .app-dashboard.shrink-large .app-dashboard-sidebar {
-    width: 80px;
-  }
-  .app-dashboard.shrink-large .app-dashboard-sidebar .fa.large {
-    width: auto;
-  }
-  .app-dashboard.shrink-large .off-canvas-content {
-    margin-left: 80px;
-    width: calc(100% - 80px);
-  }
-  .app-dashboard.shrink-large .navigation {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  .app-dashboard.shrink-large .menu.vertical > li > a {
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  .app-dashboard.shrink-large .menu li::after {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .app-dashboard.shrink-large .menu li a {
-    padding: 0.75rem;
-  }
-  .app-dashboard.shrink-large .menu li a svg {
-    margin: 0;
-  }
-  .app-dashboard.shrink-large .menu li a span {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-}
-
 
 </style>

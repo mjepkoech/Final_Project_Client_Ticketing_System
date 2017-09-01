@@ -4,10 +4,7 @@
 
 @section('content')
     <div class="row">
-
-        <div class="row expanded app-dashboard-top-nav-bar">
-            <div><h5>Raise Ticket</h5></div>
-        </div>
+        <div><h5>Raise Issue</h5></div>
 
         <div class="panel callout radius">
             @include('includes.flash')
@@ -82,7 +79,7 @@
 
                 <div>
                     <button type="submit" class="button">
-                        <i class="fa fa-btn fa-ticket"></i> Submit Ticket
+                        <i class="fa fa-btn fa-ticket"></i> Submit Issue
                     </button>
                 </div>
             </form>

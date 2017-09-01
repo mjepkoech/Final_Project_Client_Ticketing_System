@@ -6,6 +6,6 @@
                     {{ session('status') }}
                 </div>
             @endif
-                <dashboard></dashboard>
+            <dashboard></dashboard>
 
 @endsection

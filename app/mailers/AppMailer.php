@@ -14,11 +14,19 @@ class AppMailer
     protected $view;
     protected $data = [];
 
+    /**
+     * AppMailer constructor.
+     * @param Mailer $mailer
+     */
     public function __construct(Mailer $mailer)
     {
         $this->mailer = $mailer;
     }
 
+    /**
+     * @param $user
+     * @param Ticket $ticket
+     */
     public function sendTicketInformation($user, Ticket $ticket)
     {
         $this->to = $user->email;
@@ -29,6 +37,9 @@ class AppMailer
         return $this->deliver();
     }
 
+    /**
+     *
+     */
     public function deliver()
     {
         $this->mailer->send($this->view, $this->data, function ($message) {
