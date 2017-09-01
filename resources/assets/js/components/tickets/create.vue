@@ -9,13 +9,10 @@
     export default {
         data() {
             return {
-//                form: {
                     title: '',
                     message: '',
                     category: '',
                     priority: '',
-
-//                }
             }
         },
 

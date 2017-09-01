@@ -21,8 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('new_ticket', 'TicketsController@create');
 Route::get('/new_ticket/add', 'TicketsController@store');
 Route::get('/user_tickets', 'TicketsController@userTickets');
-Route::get('my_tickets', 'TicketsController@userTickets');
-Route::get('/tickets/{ticket_id}', 'TicketsController@show');
+//Route::get('my_tickets', 'TicketsController@userTickets');
+Route::get('/tickets/{id}', 'TicketsController@show');
 
 
 

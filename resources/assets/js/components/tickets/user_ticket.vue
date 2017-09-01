@@ -15,21 +15,6 @@
             this.fetchTickets();
         },
         methods: {
-//            fetchTickets() {
-//                console.log(this.title)
-//                axios.get('/user_tickets',{
-//                    params: {
-//                        title: this.title,
-//                        status: this.status,
-//                        category: this.category,
-//                        updated_at: this.updated_at,
-//                    }
-//                }).then((response) => {
-//                        console.log(response);
-//                    this.tickets = response.body;
-//                    }
-//                )
-//            }
             fetchTickets(){
                 console.log(this.title)
                     axios.get('/user_tickets').then((response) => {
@@ -58,10 +43,11 @@
                     </thead>
                     <tbody>
 
-                    <tr v-for="ticket in tickets">
+                    <tr v-for="(ticket, index) in tickets" :key="ticket.id">
                         <td>
-                            <router-link :to="{ name: 'show' }">
-                                {{ ticket.title }}</router-link>
+                            <router-link :to="{ name: 'show', params: { id: ticket.id } }">
+                                {{ ticket.title }}
+                            </router-link>
                         </td>
                         <td>
 

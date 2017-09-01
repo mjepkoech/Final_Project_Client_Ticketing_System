@@ -7,6 +7,7 @@ import Landing from '../components/partials/landing.vue';
 
 import Ticket from '../components/tickets/create.vue';
 import User_ticket from '../components/tickets/user_ticket.vue';
+import Show from '../components/tickets/show.vue';
 
 
 
@@ -33,8 +34,8 @@ const router = new Router({
 
         {
             name: 'show',
-            path: '/ticket/1',
-            component: User_ticket
+            path: '/ticket/edit_ticket/:id',
+            component: Show
         }
     ]
 });

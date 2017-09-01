@@ -73,7 +73,7 @@ class TicketsController extends Controller
      */
     public function show($ticket_id)
     {
-        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        $ticket = Ticket::findOrFail($ticket_id);
 
         $category = $ticket->category;
 
