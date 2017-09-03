@@ -18,7 +18,7 @@
             fetchTickets(){
                 console.log(this.title)
                     axios.get('/user_tickets').then((response) => {
-                        console.log(response);
+                        console.log(response, 'title');
                         this.tickets = response.data.data;
                     });
 

@@ -28,14 +28,31 @@
 
                     <hr>
 
+                    <div class="comments">
+                        @if($comments)
+                            @foreach ($comments as $comment)
+                                <div class="panel panel-@if($ticket->user->id === $comment->user_id) {{"default"}}@else{{"success"}}@endif">
+                                    <div class="panel panel-heading">
+                                        {{ $comment->user->name }}
+                                        <span class="pull-right">{{ $comment->created_at->format('Y-m-d') }}</span>
+                                    </div>
+
+                                    <div class="panel panel-body">
+                                        {{ $comment->comment }}
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
                     <div class="comment-form">
-                        <form action="{{ url('comment') }}" method="POST" class="form">
+                        <form action ="{{ url('comment') }}" method="POST" class="form">
                             {!! csrf_field() !!}
 
                             <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
 
                             <div class="form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
-                                <textarea rows="10" id="comment" class="form-control" name="comment"></textarea>
+                                <textarea rows="10" id="comment" class="form-control" name="comment" requried></textarea>
 
                                 @if ($errors->has('comment'))
                                     <span class="help-block">

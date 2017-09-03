@@ -12,6 +12,22 @@ class TicketsController extends Controller
 {
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        $tickets = Ticket::paginate(10);
+        $categories = Category::all();
+
+        return view('tickets.index', compact('tickets', 'categories'));
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -52,7 +68,7 @@ class TicketsController extends Controller
 
         return response()->json(array("status", "A ticket with ID: #$ticket->ticket_id has been raised."));
 
-        //  return redirect()->back()->with("status", "A ticket with ID: #$ticket->ticket_id has been raised.");
+         // return redirect()->back()->with("status", "A ticket with ID: #$ticket->ticket_id has been raised.");
     }
 
     /**
@@ -61,23 +77,64 @@ class TicketsController extends Controller
     public function userTickets()
     {
         $tickets = Ticket::where('user_id', Auth::user()->id)->paginate(5);
-        $categories = Category::all();
         return response()->json($tickets);
-
-
+        //return view('tickets.user_tickets', compact('tickets', 'categories'));
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function queuedUserTickets()
+    {
+        $tickets = Ticket::where('user_id', Auth::user()->id)->paginate(5);
+        $categories = Category::all();
+        return response()->json($tickets);
+        //return view('tickets.user_tickets', compact('tickets', 'categories'));
+    }
     /**
      * @param $ticket_id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($ticket_id)
     {
-        $ticket = Ticket::findOrFail($ticket_id);
+        $ticket = $this->getTickets(Ticket::findOrFail($ticket_id));
+        return response()->json($ticket);
+    }
+
+    public function getTickets(Ticket $ticket)
+    {
+        return (object)[
+            'ticket'=>$ticket,
+            'comment' => $ticket->comment,
+        ];
+    }
+
+    public function staffView($ticket_id)
+    {
+        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+
+        $comments = $ticket->comments;
 
         $category = $ticket->category;
 
-        return response()->json($ticket);
+        return view('tickets.staffView', compact('ticket', 'category', 'comments'));
+    }
+
+    public function close($ticket_id, AppMailer $mailer)
+    {
+        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+
+        $ticket->status = 'Closed';
+
+        $ticket->save();
+
+        $ticketOwner = $ticket->user;
+
+        $mailer->sendTicketStatusNotification($ticketOwner, $ticket);
+
+//        $mailer->sendTicketStatusNotification($ticketOwner, $ticket)
+
+        return redirect()->back()->with("status", "The ticket has been closed.");
     }
 
     /**
@@ -87,4 +144,10 @@ class TicketsController extends Controller
     {
         return Category::all();
     }
+
+    /**
+     * @param $ticket_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
 }

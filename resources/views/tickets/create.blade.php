@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="row">
+        <a href='{!! url('/user_tickets'); !!}'>User tickets</a>
         <div><h5>Raise Issue</h5></div>
 
         <div class="panel callout radius">

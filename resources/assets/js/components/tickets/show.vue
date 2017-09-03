@@ -1,23 +1,32 @@
 <script>
     import Vue from 'vue';
-    import Vuex from 'vuex';
     import axios from 'axios';
 
-    Vue.use(Vuex);
 
-    export default{
-
+    export default {
         data(){
-            return{
-                ticket: {}
-            }
+            return { ticket: {}, comment: [] }
         },
 
         computed: {
-
             ticketId(){
-
                 return this.$route.params.id;
+            },
+            comments() {
+                try
+                {
+                    if(this.comment.length > 0) return this.ticket.comment;
+                } catch(err) { console.log("there is an error");}
+                return [];
+            }
+        },
+
+        watch: {
+            ticket: {
+                handler: function ()
+                {
+                    console.log(this.ticket.comment);
+                }
             }
         },
 
@@ -25,11 +34,11 @@
             getTicketDetails: function ()
             {
                 axios.get('/tickets/' + this.ticketId).then((response) => {
-                    this.ticket = response.data;
+                    this.ticket = response.data.ticket;
+                    this.comment = response.data.comment;
                 }, function () {
                     console.log("error");
                 });
-
             },
         },
 
@@ -38,42 +47,43 @@
         }
     }
 </script>
+
 <template>
     <div class="row">
         <div class="panel callout primary">
             <div>
-                <div class="panel callout secondary"><p><center><b>{{ ticket.title }}</b></center></p>
-                </div>
+                <div class="ticket-info">
+                    <p><b>Title: </b>{{ ticket.title }}</p>
+                    <hr>
 
-            <div class="ticket-info">
-                <p><b>Description: </b>{{ ticket.message }}</p>
-                <!--<p>Categry: {{ $category->name }}</p>-->
-                <div>
+                    <p><b>Description: </b>{{ ticket.message }}</p>
+                    <hr>
+
+                    <p><b>Ticket Number: </b>{{ ticket.ticket_id }}</p>
+                    <hr>
+
+                    <p><b>Last updated: </b>
+                        {{ ticket.updated_at }}
+                    </p>
+                    <hr>
+
                     <p><b>Status: </b></p>
                     <p>
                     <span v-if="ticket.status == 'Pending'" class="alert button">{{ ticket.status }}</span>
-                    <span v-else class="success button">{{ ticket.status }}</span>
-                </p></div>
-                <p><b>Created on: </b>{{ ticket.updated_at }}</p>
+                    <span v-else>
+                        <span class="success button"> {{ ticket.status }} </span>
+                        <br/>
+                        <hr>
+                        <span v-if="comments">
+                            <template v-for="comment in comments">
+                                <b>Closing Comments: </b>{{ comment.comment }}
+                            </template>
+                        </span>
+                    </span>
+
+                    </p>
+                 </div>
             </div>
-
-            <hr>
-
-            <div class="comment-form">
-                <form action="" method="POST" class="form">
-
-                    <div>
-                        <p><b>Message: </b></p>
-                        <textarea rows="5" id="comment" class="form-control" name="comment"></textarea>
-
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="button">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
         </div>
     </div>
 </template>

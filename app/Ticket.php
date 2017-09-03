@@ -35,7 +35,7 @@ class Ticket extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function comment()
     {
         return $this->hasMany(Comment::class);
     }
