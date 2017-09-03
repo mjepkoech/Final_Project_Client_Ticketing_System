@@ -9,3 +9,4 @@ Application Requirements and Flow
 ¬	Subsequently, mails will be sent to the user as the Client Service staff or admin response to the ticket
 ¬	The admin or the Client Service staff can comment on the ticket and also mark a ticket as resolved
 ¬	Once a ticket is marked as closed, the user who opened the ticket will be notified by email on the status of the ticket.
+    Reaports can also be generated
